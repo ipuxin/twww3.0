@@ -70,7 +70,7 @@ class Person extends \yii\db\ActiveRecord
             [['shopname'], 'unique'],
 //            [['invitation'], 'required'],//外来属性
 //            [['invitation'], 'default', 'value' => 0],// 默认值
-            [['invitation'], 'unique'],
+//            [['invitation'], 'unique'],
         ];
     }
 

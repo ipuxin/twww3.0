@@ -64,6 +64,21 @@ class PageController extends Controller
         }
     }
 
+    //打印日志函数--yii2
+    function logResultMy($word = '')
+    {
+        $dir = Yii::getAlias('@frontend/log/' . 'myBook');
+        if (!file_exists($dir)) {
+            mkdir($dir, '0777', true);
+        }
+        $fileName = $dir . '/' . 'myBook' . '.txt';
+        $fp = fopen($fileName, "a");
+        flock($fp, LOCK_EX);
+        fwrite($fp, "执行日期：" . strftime("%Y%m%d-%H:%M:%S", time()) . "\r\n" . $word . "\r\n");
+        flock($fp, LOCK_UN);
+        fclose($fp);
+    }
+
     public function actionLxwm()
     {
         $model = new Book();
@@ -72,6 +87,28 @@ class PageController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->getSession()->setFlash('success', '您已留言成功，请保持电话畅通我们客服会尽快联系您！');
+
+            $post = Yii::$app->request->post();
+            $realPost = $post['Book'];
+
+            //打印日志
+            $this->logResultMy(json_encode('---post-$post---'));
+            $this->logResultMy(json_encode($realPost));
+
+            //保存到MongoDB
+            $urlApi = 'http://twx.pingoing.cn/ajax/CreatPageMessage';
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $urlApi);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+            curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $realPost);
+            $response = curl_exec($ch);
+            curl_close($ch);
+            print_r($response);  //打印结果
+            die();
+
             return $this->redirect(['page/app']);
         } else {
             return $this->render('lxwm', [

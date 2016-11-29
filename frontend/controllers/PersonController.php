@@ -103,11 +103,11 @@ class PersonController extends Controller
     //打印日志函数--yii2
     function logResultMy($word = '')
     {
-        $dir = Yii::getAlias('@frontend/log/' . 'myPcQianTai');
+        $dir = Yii::getAlias('@frontend/log/' . 'myPerson');
         if (!file_exists($dir)) {
             mkdir($dir, '0777', true);
         }
-        $fileName = $dir . '/' . 'myPcQianTai' . '.txt';
+        $fileName = $dir . '/' . 'myPerson' . '.txt';
         $fp = fopen($fileName, "a");
         flock($fp, LOCK_EX);
         fwrite($fp, "执行日期：" . strftime("%Y%m%d-%H:%M:%S", time()) . "\r\n" . $word . "\r\n");

@@ -14,6 +14,7 @@ use yii\widgets\ActiveForm;
         'template' => '  {input} <div class="help-block"></div>',
         'inputOptions' => [
             'placeholder' => $model->getAttributeLabel('name'),
+            'value'=>'测试姓名'
         ],
     ])?>
 
@@ -21,6 +22,7 @@ use yii\widgets\ActiveForm;
         'template' => '  {input} <div class="help-block">{error}</div>',
         'inputOptions' => [
             'placeholder' => $model->getAttributeLabel('tel'),
+            'value'=>'18039208956'
         ],
 		])->textInput(['maxlength' => true]) ?>
 
@@ -28,24 +30,28 @@ use yii\widgets\ActiveForm;
         'template' => '  {input} <div class="help-block">{error}</div>',
         'inputOptions' => [
             'placeholder' => $model->getAttributeLabel('mail'),
+            'value'=>'631752525@qq.com'
         ],])->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'city',[
         'template' => '  {input} <div class="help-block">{error}</div>',
         'inputOptions' => [
             'placeholder' => $model->getAttributeLabel('city'),
+            'value'=>'郑州'
         ],])->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'money',[
         'template' => '  {input}',
         'inputOptions' => [
             'placeholder' => $model->getAttributeLabel('money'),
+            'value'=>'100000'
         ],])->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'business',[
         'template' => '  {input}',
         'inputOptions' => [
             'placeholder' => $model->getAttributeLabel('business'),
+            'value'=>'水果销售'
         ],])->textInput(['maxlength' => true]) ?>
 
     <div class="form-group  " >
